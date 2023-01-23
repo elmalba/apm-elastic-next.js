@@ -1,0 +1,15 @@
+import { PrismaClient } from '@prisma/client'
+import Agent from 'elastic-apm-node'
+
+import apm from 'elastic-apm-node/start';
+
+
+//const globalForPrisma = global as unknown as { prisma: PrismaClient }
+
+export const prisma = new PrismaClient({
+    log: ['query'],
+  }) 
+
+
+
+//if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma

@@ -1,115 +1,107 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css';
 
-export default function Home() {
+import styles from '../styles/Home.module.css';
+import { BsSearch } from "react-icons/bs";
+import { useState, useEffect } from 'react';
+import Link from 'next/link'
+
+import apm from 'elastic-apm-node/start';
+
+
+async function GetMoney(money){
+
+  let moneyApi,moneyResult;
+  switch(money) {
+    case "dolar":
+      moneyApi="dolar"
+      moneyResult="Dolares";
+      break;
+    case "euro":
+      moneyApi="euro"
+      moneyResult="Euros";
+      break;
+    default:
+      return
+  }
+  
+  //const transaction = apm.startTransaction('Click get Data', 'custom')
+  const url = `https://api.cmfchile.cl/api-sbifv3/recursos_api/${moneyApi}/?apikey=1691a400e015a7310152a544db165df6bf613975&formato=json`
+  //const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
+
+  let results = await fetch(url);
+  results = await results.json()
+  //httpSpan.end()
+//  transaction.end()
+
+  return  results[moneyResult][0]
+}
+
+
+export default  function Regions() {
+
+  const [dolar,SetDolar] = useState({Valor:""})
+  const [euro,SetEuro] = useState({Valor:""})
+  useEffect(() => {
+    const fetchData = async () => {
+      let resultDolar = await GetMoney("dolar")
+      let resultEuro = await GetMoney("euro")
+      SetDolar(resultDolar)
+      SetEuro(resultEuro)
+
+    }
+    fetchData().catch(console.error);
+  }, []);
+
+
+
+  console.log(dolar)
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
       <main>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Buscador de  <Link href="/">Parques nacionales</Link>
         </h1>
 
         <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
+          Creado para la <code>JsConf 2023</code>
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
+        <a
+            className={styles.cardFull}
           >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+            <h3>Buscador &rarr;</h3>
+            <div className="input-group">
+              <div className="form-outline">
+                <input type="search" id="form1" className="form-control" />
+              </div>
+              <button type="button" className="btn btn-primary">
+                <BsSearch />
+              </button>
+            </div>
           </a>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
+          <a className={styles.card}>
+            <h3>Dolar</h3>
+            <p>$ {dolar["Valor"]}</p>
           </a>
+
+          <a className={styles.card}  >
+              <h3>Euros</h3>
+              <p>$ {euro["Valor"]} </p>
+          </a>
+
+
+        
+       
+          
         </div>
       </main>
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
-        </a>
-      </footer>
 
-      <style jsx>{`
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        footer img {
-          margin-left: 0.5rem;
-        }
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-decoration: none;
-          color: inherit;
-        }
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-      `}</style>
 
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
+
     </div>
   )
 }
