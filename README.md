@@ -1,1 +1,18 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).# apm-elastic-next.js
+# APM Elastic Next.js
+
+
+## Installation
+
+Before run this code check you have install node js and next js and check your code with your elastic enviroments in this file elastic-apm-node.js
+
+```sh
+vi elastic-apm-node.js
+```
+
+Developmente Mode
+
+```sh
+npm install
+npm run dev
+```
+
