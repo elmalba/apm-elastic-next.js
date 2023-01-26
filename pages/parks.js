@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { prisma } from '../db'
 
-import  apm from 'elastic-apm-node/start'
 
 export async function getStaticProps() {
   const parks = await prisma.parks.findMany({

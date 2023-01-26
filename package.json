@@ -11,7 +11,7 @@
     "@elastic/apm-rum": "^5.12.0",
     "@prisma/client": "^4.9.0",
     "bootstrap": "^5.2.3",
-    "elastic-apm-node": "elastic/apm-agent-nodejs#main",
+    "elastic-apm-node": "github:elastic/apm-agent-nodejs#main",
     "fs": "^0.0.1-security",
     "next": "latest",
     "prisma-opentracing-middleware": "^1.0.0",
