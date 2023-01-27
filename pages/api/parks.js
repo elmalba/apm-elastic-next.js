@@ -7,14 +7,15 @@ export default async function handler(req, res) {
 
     var span = apm.startSpan('call DB')
 
-      const parks = await prisma.parks.findMany({
+
+    const parks = await prisma.parks.findMany({
         include: {
-          region: true, 
+            region: true,
         },
-      })
+    })
 
-      res.status(200).json(parks)
+    res.status(200).json(parks)
 
-      if (span) span.end()
-    
-  }
+    if (span) span.end()
+
+}

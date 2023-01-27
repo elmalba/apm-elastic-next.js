@@ -1,23 +1,27 @@
 
 import Link from 'next/link'
 import styles from '../styles/Home.module.css';
-import { prisma } from '../db'
+import { useState, useEffect } from 'react';
+import apm from '../rum'
 
-export async function getStaticProps() {
-  const regions = await prisma.regions.findMany({
-    include: {
-      airports: true, // Return all fields
-    },
-  })
+export default  function Regions() {
+  const [regions,SetRegions] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      const transaction = apm.startTransaction('Click get Data', 'custom')
+      const url = `/api/regions`
+      const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
+    
+      let results = await fetch(url);
+      results = await results.json()
+      
+      SetRegions(results)
+      httpSpan.end()
+      transaction.end()
 
-  return {
-    props : { regions }
-  }
-}
-
-
-
-export default  function Regions({regions}) {
+    }
+    fetchData().catch(console.error);
+  }, []);
 
 
   return (

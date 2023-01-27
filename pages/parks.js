@@ -1,21 +1,33 @@
 import Link from 'next/link'
-import { prisma } from '../db'
+import { useState, useEffect } from 'react';
+
+import apm from '../rum'
 
 
-export async function getStaticProps() {
-  const parks = await prisma.parks.findMany({
-    include: {
-      region: true, 
-    },
-  })
-
-  return {
-    props : { parks }
-  }
-}
 
 
-export default  function Parks({parks}) {
+export default  function Parks() {
+
+  const [parks,SetParks] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      const transaction = apm.startTransaction('Click get Data', 'custom')
+      const url = `/api/parks`
+      const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
+    
+      let results = await fetch(url);
+      results = await results.json()
+
+      SetParks(results)
+      httpSpan.end()
+      transaction.end()
+    
+
+    }
+    fetchData().catch(console.error);
+  }, []);
+
+
 
 
   return (
