@@ -3,9 +3,7 @@ import styles from '../styles/Home.module.css';
 import { BsSearch } from "react-icons/bs";
 import { useState, useEffect } from 'react';
 import Link from 'next/link'
-
-
-import apm from '../rum'
+//import apm from '../rum'
 
 async function GetMoney(money){
 

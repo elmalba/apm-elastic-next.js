@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 import "../styles/globals.css";
 
-import apm from '../rum'
+//import apm from '../rum'
 
 export default function MyApp({ Component, pageProps }) {
     return (

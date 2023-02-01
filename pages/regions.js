@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import styles from '../styles/Home.module.css';
 import { useState, useEffect } from 'react';
-import apm from '../rum'
+//import apm from '../rum'
 
 export default  function Regions() {
   const [regions,SetRegions] = useState([])
