@@ -20,7 +20,7 @@ async function GetMoney(money){
     default:
       return
   }
-  var span = apm.startSpan('receiving body')
+  //const span = apm.startSpan('receiving body')
 
    
     
@@ -34,7 +34,7 @@ async function GetMoney(money){
   //httpSpan.end()
  // transaction.end()
 
-  if (span) span.end()
+  //if (span) span.end()
 
   return  results[moneyResult][0]
 }
