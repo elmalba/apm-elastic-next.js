@@ -25,14 +25,14 @@ async function GetMoney(money){
    
     
     
-  const transaction = apm.startTransaction('Click get Data', 'custom')
+ // const transaction = apm.startTransaction('Click get Data', 'custom')
   const url = `https://api.cmfchile.cl/api-sbifv3/recursos_api/${moneyApi}/?apikey=1691a400e015a7310152a544db165df6bf613975&formato=json`
-  const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
+  //const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
 
   let results = await fetch(url);
   results = await results.json()
-  httpSpan.end()
-  transaction.end()
+  //httpSpan.end()
+ // transaction.end()
 
   if (span) span.end()
 
