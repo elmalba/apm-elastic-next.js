@@ -8,16 +8,16 @@ export default  function Regions() {
   const [regions,SetRegions] = useState([])
   useEffect(() => {
     const fetchData = async () => {
-      const transaction = apm.startTransaction('Click get Data', 'custom')
+      // const transaction = apm.startTransaction('Click get Data', 'custom')
       const url = `/api/regions`
-      const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
+      // const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
     
       let results = await fetch(url);
       results = await results.json()
       
       SetRegions(results)
-      httpSpan.end()
-      transaction.end()
+     // httpSpan.end()
+     // transaction.end()
 
     }
     fetchData().catch(console.error);

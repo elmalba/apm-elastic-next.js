@@ -11,16 +11,16 @@ export default  function Parks() {
   const [parks,SetParks] = useState([])
   useEffect(() => {
     const fetchData = async () => {
-      const transaction = apm.startTransaction('Click get Data', 'custom')
+      //const transaction = apm.startTransaction('Click get Data', 'custom')
       const url = `/api/parks`
-      const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
+      //const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
     
       let results = await fetch(url);
       results = await results.json()
 
       SetParks(results)
-      httpSpan.end()
-      transaction.end()
+      //httpSpan.end()
+      //transaction.end()
     
 
     }
