@@ -5,7 +5,7 @@ const apm = initApm({
   serviceName: 'JsConf Chile - Frontend',
 
   // Set custom APM Server URL (default: http://localhost:8200)
-  serverUrl: 'https://negrote.apm.us-central1.gcp.cloud.es.io:443',
+  serverUrl: 'https://malba.apm.us-central1.gcp.cloud.es.io:443',
 
   // Set the service version (required for source map feature)
   serviceVersion: '1.0',
