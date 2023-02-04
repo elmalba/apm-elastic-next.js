@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css';
 import { BsSearch } from "react-icons/bs";
 import { useState, useEffect } from 'react';
 import Link from 'next/link'
-//import apm from '../rum'
+import apm from '../rum'
 
 async function GetMoney(money){
 
@@ -20,21 +20,17 @@ async function GetMoney(money){
     default:
       return
   }
-  //const span = apm.startSpan('receiving body')
 
-   
     
     
- // const transaction = apm.startTransaction('Click get Data', 'custom')
-  const url = `https://api.cmfchile.cl/api-sbifv3/recursos_api/${moneyApi}/?apikey=1691a400e015a7310152a544db165df6bf613975&formato=json`
-  //const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
+  const transaction = apm.startTransaction('Click get Data', 'custom')
+  const url = `https://api.cmfchile.cl/api-sbifv3/recursos_api/${moneyApi}/2023?apikey=1691a400e015a7310152a544db165df6bf613975&formato=json`
+  const httpSpan = transaction.startSpan('GET ' + url, 'external.http')
 
   let results = await fetch(url);
   results = await results.json()
-  //httpSpan.end()
- // transaction.end()
-
-  //if (span) span.end()
+  httpSpan.end()
+  transaction.end()
 
   return  results[moneyResult][0]
 }
@@ -72,20 +68,7 @@ export default  function Regions() {
 
         <div className={styles.grid}>
 
-        <a
-            className={styles.cardFull}
-          >
-            <h3>Buscador &rarr;</h3>
-            <div className="input-group">
-              <div className="form-outline">
-                <input type="search" id="form1" className="form-control" />
-              </div>
-              <button type="button" className="btn btn-primary">
-                <BsSearch />
-              </button>
-            </div>
-          </a>
-
+ 
           <a className={styles.card}>
             <h3>Dolar</h3>
             <p>$ {dolar["Valor"]}</p>
